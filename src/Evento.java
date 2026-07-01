@@ -18,4 +18,4 @@ public record Evento(
     public String toString() {
         return nombre + " - " + formatearFecha() + " - " + ubicacion;
     }
-}
+} 
