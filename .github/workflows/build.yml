@@ -9,7 +9,7 @@ on:
 
 jobs:
   sonarqube:
-    name: SonarQube Analysis
+    name: SonarCloud Analysis
     runs-on: ubuntu-latest
 
     steps:
@@ -18,26 +18,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Debug structure
+        run: ls -R
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
 
-      - name: Cache Sonar packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2
-
-      - name: Build project (compile check)
-        run: mvn -B clean compile
+      - name: Compile Java (manual)
+        run: |
+          mkdir -p out
+          find src -name "*.java" > sources.txt
+          javac -d out @sources.txt
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarqube-scan-action@v2
@@ -48,3 +42,4 @@ jobs:
             -Dsonar.projectKey=CarukMaria_TP7-IISS3-Programa-Agendas-java
             -Dsonar.organization=carukmaria
             -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.sources=src
