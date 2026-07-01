@@ -1,29 +1,11 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Evento {
-
-    private String nombre;
-    private LocalDateTime fecha;
-    private String ubicacion;
-
-    public Evento(String nombre, LocalDateTime fecha, String ubicacion) {
-        this.nombre = nombre;
-        this.fecha = fecha;
-        this.ubicacion = ubicacion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public LocalDateTime getFecha() {
-        return fecha;
-    }
-
-    public String getUbicacion() {
-        return ubicacion;
-    }
+public record Evento(
+        String nombre,
+        LocalDateTime fecha,
+        String ubicacion
+) {
 
     public String formatearFecha() {
         DateTimeFormatter formato =
@@ -34,6 +16,6 @@ public class Evento {
 
     @Override
     public String toString() {
-        return nombre + " - " + fecha + " - " + ubicacion;
+        return nombre + " - " + formatearFecha() + " - " + ubicacion;
     }
 }
