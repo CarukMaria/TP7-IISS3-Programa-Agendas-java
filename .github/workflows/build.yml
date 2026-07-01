@@ -10,7 +10,7 @@ on:
 jobs:
   sonarqube:
     name: SonarQube
-    runs-on: windows-latest
+    runs-on: ubuntu-latest   # 🔥 CAMBIO CLAVE
 
     steps:
       - name: Checkout repository
@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
 
       - name: Debug workspace structure
-        run: dir
+        run: ls -R
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v2
